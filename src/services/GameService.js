@@ -78,6 +78,9 @@ const doubt = (game, player) => {
 
         // Find who is losing the doubt
         const loser = game.isDoubtCorrect() ? doubted : doubter;
+
+        // Ugly object copy
+        const old_dice = JSON.parse(JSON.stringify(game.dice));
         
         // Remove die from loser
         const keepsOnPlaying = game.removeDie(loser.gid);
@@ -100,6 +103,7 @@ const doubt = (game, player) => {
         // Roll dice
         return {
             'status': 'nextround',
+            'round_dice': old_dice,
             'game': nextRound(game),
             'doubter': doubter.gid,
             'doubted': doubted.gid,
